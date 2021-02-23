@@ -1,6 +1,6 @@
 # Goals
-- [ ] Make window
-- [ ] Make game loop
+- [X] Make window
+- [X] Make game loop
 - [ ] Draw ball on screen
 
 # Install SDL
