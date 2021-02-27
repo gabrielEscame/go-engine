@@ -1,18 +1,14 @@
 package engine
 
-import "fmt"
-
 type Keyboard struct {
 	pressedKeys map[string]bool
 }
 
 func (k *Keyboard) Press(keyName string) {
-	fmt.Println("Pressed key", keyName)
 	k.pressedKeys[keyName] = true
 }
 
 func (k *Keyboard) Release(keyName string) {
-	fmt.Println("Released key", keyName)
 	k.pressedKeys[keyName] = false
 }
 

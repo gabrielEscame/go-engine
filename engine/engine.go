@@ -11,7 +11,7 @@ type Engine struct {
 	input   *Input
 }
 
-type UpdateFn func(*Input)
+type UpdateFn func(*Input, float64)
 type DrawFn func(*sdl.Surface)
 
 func (e *Engine) Setup() {
@@ -40,7 +40,21 @@ func (e *Engine) Setup() {
 
 func (e *Engine) Loop(updateFn UpdateFn, drawFn DrawFn) {
 	e.running = true
+
+	const secsPerUpdate = 1 / 60.0
+	var current, elapsed, lag float64
+	previous := float64(sdl.GetTicks()) * 0.001
+
 	for e.running {
+		current = float64(sdl.GetTicks()) * 0.001
+		elapsed = current - previous
+		previous = current
+
+		if elapsed > 1.0 {
+			continue
+		}
+
+		lag += elapsed
 
 		// Handling inputs
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
@@ -61,12 +75,14 @@ func (e *Engine) Loop(updateFn UpdateFn, drawFn DrawFn) {
 			}
 		}
 
-		updateFn(e.input)
+		for lag >= secsPerUpdate {
+			updateFn(e.input, secsPerUpdate)
+			lag -= secsPerUpdate
+		}
 
 		e.surface.FillRect(nil, 0)
 		drawFn(e.surface)
 		e.window.UpdateSurface()
-
 	}
 }
 

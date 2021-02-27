@@ -13,9 +13,9 @@ func main() {
 	e := engine.NewEngine()
 
 	e.Setup()
-	e.Loop(func(i *engine.Input) {
-		ball.Update(i)
-		player.Update(i)
+	e.Loop(func(i *engine.Input, dt float64) {
+		ball.Update(i, dt)
+		player.Update(i, dt)
 	}, func(s *sdl.Surface) {
 		ball.Draw(s)
 		player.Draw(s)

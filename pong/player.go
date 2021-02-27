@@ -6,18 +6,18 @@ import (
 )
 
 type Player struct {
-	x int
-	y int
-	w int
-	h int
+	x float64
+	y float64
+	w float64
+	h float64
 }
 
-func (p *Player) Update(i *engine.Input) {
+func (p *Player) Update(i *engine.Input, dt float64) {
 	if i.Keyboard.IsPressed("W") && p.y > 0 {
-		p.y -= 1
+		p.y -= 100 * dt
 	}
 	if i.Keyboard.IsPressed("S") && p.y+p.h < 240 {
-		p.y += 1
+		p.y += 100 * dt
 	}
 }
 

@@ -15,15 +15,15 @@ type Ball struct {
 	dirY   float64
 }
 
-func (b *Ball) Update(i *engine.Input) {
-	b.x += b.dirX
-	b.y += b.dirY
+func (b *Ball) Update(i *engine.Input, dt float64) {
+	b.x += b.dirX * dt * 100
+	b.y += b.dirY * dt * 100
 
-	if b.x > 256 || b.x < 0 {
+	if b.x+b.radius*2 > 256 || b.x < 0 {
 		b.dirX *= -1
 	}
 
-	if b.y > 240 || b.y < 0 {
+	if b.y+b.radius*2 > 240 || b.y < 0 {
 		b.dirY *= -1
 	}
 }

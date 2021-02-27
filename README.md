@@ -7,7 +7,8 @@
     - [X] Game Loop
 - [X] Segregate engine and game code
 - [X] Player 1 Paddle
-- [ ] Framerate limiter / Delta time
+- [X] Keyboard input handling
+- [X] Framerate limiter / Delta time
 
 - [ ] Player 2 Paddle
     
