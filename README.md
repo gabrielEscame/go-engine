@@ -9,6 +9,9 @@
 - [X] Player 1 Paddle
 - [X] Keyboard input handling
 - [X] Framerate limiter / Delta time
+- [X] Collision 
+- [ ] Collide ball with paddle 
+- [ ] Pass on the screen config 
 
 - [ ] Player 2 Paddle
     
