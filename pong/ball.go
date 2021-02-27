@@ -1,15 +1,11 @@
-package main
+package pong
 
 import (
 	"math/rand"
 
+	"github.com/gabrielEscame/go-engine/engine"
 	"github.com/veandco/go-sdl2/sdl"
 )
-
-type Entity interface {
-	Update()
-	Draw(g *sdl.Surface)
-}
 
 type Ball struct {
 	x      float64
@@ -19,7 +15,7 @@ type Ball struct {
 	dirY   float64
 }
 
-func (b *Ball) Update() {
+func (b *Ball) Update(i *engine.Input) {
 	b.x += b.dirX
 	b.y += b.dirY
 

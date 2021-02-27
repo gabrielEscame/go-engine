@@ -1,17 +1,24 @@
 package main
 
-import "github.com/veandco/go-sdl2/sdl"
+import (
+	"github.com/gabrielEscame/go-engine/engine"
+	"github.com/gabrielEscame/go-engine/pong"
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 func main() {
 
-	ball := NewBall(50, 50, 10)
+	ball := pong.NewBall(50, 50, 10)
+	player := pong.NewPlayer()
+	e := engine.NewEngine()
 
-	engine := NewEngine()
-	engine.Setup()
-	engine.Loop(func() {
-		ball.Update()
+	e.Setup()
+	e.Loop(func(i *engine.Input) {
+		ball.Update(i)
+		player.Update(i)
 	}, func(s *sdl.Surface) {
 		ball.Draw(s)
+		player.Draw(s)
 	})
 
 }

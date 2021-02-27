@@ -1,14 +1,17 @@
-package main
+package engine
 
-import "github.com/veandco/go-sdl2/sdl"
+import (
+	"github.com/veandco/go-sdl2/sdl"
+)
 
 type Engine struct {
 	window  *sdl.Window
 	surface *sdl.Surface
 	running bool
+	input   *Input
 }
 
-type UpdateFn func()
+type UpdateFn func(*Input)
 type DrawFn func(*sdl.Surface)
 
 func (e *Engine) Setup() {
@@ -36,20 +39,31 @@ func (e *Engine) Setup() {
 }
 
 func (e *Engine) Loop(updateFn UpdateFn, drawFn DrawFn) {
+	e.running = true
 	for e.running {
 
 		// Handling inputs
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			switch event.(type) {
+			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				e.running = false
 				break
+			case *sdl.KeyboardEvent:
+				key := sdl.GetKeyName(t.Keysym.Sym)
+
+				switch t.GetType() {
+				case sdl.KEYDOWN:
+					e.input.Keyboard.Press(key)
+				case sdl.KEYUP:
+					e.input.Keyboard.Release(key)
+				}
+
 			}
 		}
 
-		updateFn()
+		updateFn(e.input)
 
-		// e.surface.FillRect(nil, 0)
+		e.surface.FillRect(nil, 0)
 		drawFn(e.surface)
 		e.window.UpdateSurface()
 
@@ -60,6 +74,7 @@ func NewEngine() *Engine {
 	return &Engine{
 		window:  nil,
 		surface: nil,
-		running: true,
+		running: false,
+		input:   NewInput(),
 	}
 }
