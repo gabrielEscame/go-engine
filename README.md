@@ -10,9 +10,10 @@
 - [X] Keyboard input handling
 - [X] Framerate limiter / Delta time
 - [X] Collision 
-- [ ] Collide ball with paddle 
+- [X] Collide ball with paddle 
 - [ ] Pass on the screen config 
-
+- [ ] Fix strange behavior on ball collision
+- [ ] Draw collision boxes (debug mode)
 - [ ] Player 2 Paddle
     
 # Install SDL
