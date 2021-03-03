@@ -1,9 +1,11 @@
 package pong
 
 import (
+	"fmt"
 	"math/rand"
 
 	"github.com/gabrielEscame/go-engine/engine"
+	"github.com/gabrielEscame/go-engine/physics"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -36,6 +38,25 @@ func (b *Ball) Draw(g *sdl.Surface) {
 		H: int32(b.radius * 2),
 	}
 	g.FillRect(&rect, uint32(rand.Intn(0xffffffff)))
+}
+
+func (b *Ball) GetShape() *physics.SquareShape {
+	return &physics.SquareShape{
+		X: b.x,
+		Y: b.y,
+		W: 10,
+		H: 10,
+	}
+	// return &physics.CircleShape{
+	// 	X:      b.x,
+	// 	Y:      b.y,
+	// 	Radius: b.radius,
+	// }
+}
+
+func (b *Ball) OnCollisionEnter(collisionInfo *engine.CollisionInfo) {
+	fmt.Println("Bola colidiu com alguma coisa!")
+	b.dirX *= -1
 }
 
 func NewBall(x, y, radius float64) *Ball {

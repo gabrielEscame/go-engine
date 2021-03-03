@@ -21,21 +21,21 @@ func DistanceTo(x1, y1, x2, y2 float64) float64 {
 	return math.Sqrt(deltaX*deltaX + deltaY*deltaY)
 }
 
-func AABB(a, b SquareShape) bool {
+func AABB(a, b *SquareShape) bool {
 	return (a.X < b.X+b.W &&
 		a.X+a.W > b.X &&
 		a.Y < b.Y+b.H &&
 		a.Y+a.H > b.Y)
 }
 
-func CircleCollision(a, b CircleShape) bool {
+func CircleCollision(a, b *CircleShape) bool {
 	totalRadiusSquared := a.Radius + b.Radius
 	totalRadiusSquared = totalRadiusSquared * totalRadiusSquared
 
 	return DistanceTo(a.X, a.Y, b.X, b.Y) < totalRadiusSquared
 }
 
-func CircleSquareCollision(a CircleShape, b SquareShape) bool {
+func CircleSquareCollision(a *CircleShape, b *SquareShape) bool {
 	var cX, cY float64
 
 	if a.X < b.X {

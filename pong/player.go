@@ -1,7 +1,10 @@
 package pong
 
 import (
+	"fmt"
+
 	"github.com/gabrielEscame/go-engine/engine"
+	"github.com/gabrielEscame/go-engine/physics"
 	"github.com/veandco/go-sdl2/sdl"
 )
 
@@ -29,6 +32,19 @@ func (p *Player) Draw(g *sdl.Surface) {
 		H: int32(p.h),
 	}
 	g.FillRect(&rect, 0xffffffff)
+}
+
+func (p *Player) GetShape() *physics.SquareShape {
+	return &physics.SquareShape{
+		X: p.x,
+		Y: p.y,
+		W: p.w,
+		H: p.y,
+	}
+}
+
+func (p *Player) OnCollisionEnter(collisionInfo *engine.CollisionInfo) {
+	fmt.Println("Player colidiu porra")
 }
 
 func NewPlayer() *Player {

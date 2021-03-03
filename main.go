@@ -12,8 +12,14 @@ func main() {
 	player := pong.NewPlayer()
 	e := engine.NewEngine()
 
+	entities := []engine.CollidableEntity{
+		ball,
+		player,
+	}
+
 	e.Setup()
 	e.Loop(func(i *engine.Input, dt float64) {
+		engine.CollisionChecker(entities)
 		ball.Update(i, dt)
 		player.Update(i, dt)
 	}, func(s *sdl.Surface) {
